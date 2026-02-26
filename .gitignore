@@ -1,0 +1,22 @@
+# Generated files (not part of the pipeline template)
+review_outline.md
+core_papers.json
+background_papers.json
+summary.json
+review_draft*.md
+references*.md
+TASK_FOR_WRITER.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# macOS
+.DS_Store
+
+# API keys — never commit
+.env
+*.env
+secrets.py

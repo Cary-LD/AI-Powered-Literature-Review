@@ -1,0 +1,40 @@
+{
+  "title": "Multi-Fidelity Neural Network for Predicting [Target Property] with Limited Experimental Data",
+  "title_zh": "基于多保真度神经网络在有限实验数据下预测[目标属性]的方法",
+  "authors": ["Zhang Wei", "Li Ming", "Wang Fang"],
+  "year": 2024,
+  "journal": "Journal of [Your Domain], Volume X",
+  "language": "English",
+
+  "primary_category": "E",
+  "secondary_categories": ["D"],
+  "relevance_score": 5,
+
+  "domain_specific_material": "[Specific material or system studied in the paper]",
+  "research_problem": "[本文研究解决的具体问题，用中文描述]",
+  "ml_methods": [
+    "Long Short-Term Memory (LSTM)",
+    "Multi-Layer Perceptron (MLP)",
+    "Multi-Fidelity Fusion Network"
+  ],
+  "core_technique": [
+    "Multi-fidelity data fusion",
+    "Transfer learning",
+    "Residual learning"
+  ],
+  "dataset_info": "~30 high-fidelity experimental samples + ~300 low-fidelity simulation samples",
+
+  "core_contribution": "提出了多保真度融合神经网络，整合有限的高保真实验数据与大量低保真仿真数据，在数据稀缺条件下显著提升了预测精度。",
+  "core_conclusion": "与纯数据驱动基线相比，该方法将预测误差降低了约40%，且对低保真数据质量的鲁棒性强。",
+  "limitations": "目前仅在特定边界条件下验证，对其他工况的泛化性有待检验。",
+  "review_angle": "适合放在第五章5.1节多保真度融合小节，作为该策略在本领域的典型应用案例，支撑"融合高低保真度数据可有效缓解实验数据稀缺问题"的核心论点。",
+
+  "keywords_zh": ["多保真度融合", "神经网络", "数据稀缺", "迁移学习", "预测建模"],
+
+  "_meta": {
+    "input_tokens": 9234,
+    "output_tokens": 487,
+    "model": "google/gemini-2.5-flash",
+    "analyzed_at": "2024-01-01 12:00:00"
+  }
+}
