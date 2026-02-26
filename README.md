@@ -14,7 +14,7 @@ Given a Zotero library of hundreds of papers, this pipeline:
 4. **Synthesizes** a structured outline with cross-reference analysis
 5. **Drafts** the full review using a capable LLM (Claude)
 
-**Total cost:** ~$5 for 700+ papers. **Total time:** a few hours of compute + focused human review.
+**Total cost:** ~$10 for 700+ papers. **Total time:** a few hours of compute + focused human review.
 
 ---
 
