@@ -1,8 +1,7 @@
 # AI-Assisted Literature Review Pipeline
 
 A **5-step pipeline** for writing academic literature reviews at scale — from a Zotero library to a publication-ready draft.
-
-The workflow was designed by me and executed largely by [OpenClaw](https://github.com/openclaw/openclaw). Feeding this repo to OpenClaw with Claude Opus 4.6 should reproduce the full pipeline end-to-end.
+Drop this repo into an OpenClaw (https://github.com/openclaw/openclaw) agent's workspace directory. With Claude Opus 4.6 as the model, it will orchestrate the full pipeline and produce a publication-ready literature review in a matter of hours.
 
 ## What This Does
 
