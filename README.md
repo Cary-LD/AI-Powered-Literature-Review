@@ -1,6 +1,8 @@
 # AI-Assisted Literature Review Pipeline
 
-A **5-step automated pipeline** for writing academic literature reviews at scale — from a Zotero library to a publication-ready draft, with minimal manual effort.
+A **5-step pipeline** for writing academic literature reviews at scale — from a Zotero library to a publication-ready draft.
+
+The workflow was designed by me and executed largely by [OpenClaw](https://github.com/openclaw/openclaw). Feeding this repo to OpenClaw with Claude Opus 4.6 should reproduce the full pipeline end-to-end.
 
 ## What This Does
 
@@ -19,9 +21,13 @@ Given a Zotero library of hundreds of papers, this pipeline:
 ## Core Idea
 
 ```
-Cheap model (Gemini Flash) → reads every paper → structured JSON per paper
-                                                        ↓
-Capable model (Claude)    → reads all JSONs   → writes the review
+You (Zotero library + instructions)
+        ↓
+OpenClaw (executes pipeline steps, writes scripts, coordinates models)
+        ↓
+OpenRouter API
+        ├── Gemini Flash  → reads every paper → structured JSON per paper
+        └── Claude Sonnet → reads all JSONs   → writes the review
 ```
 
 Split the work by model capability:
@@ -36,18 +42,18 @@ Split the work by model capability:
 Step 1: Deduplicate
         Zotero storage folders → detect duplicate PDFs → clean up
 
-Step 2: Design Analysis Schema (Claude)
+Step 2: Design Analysis Schema (Claude via OpenClaw)
         Review topic → Claude designs JSON schema + classification system → configure analyze.py
 
-Step 3: Batch Analysis (Gemini Flash)
+Step 3: Batch Analysis (Gemini Flash via OpenRouter)
         N papers × PDF text → LLM → analysis.json per paper
         (~$0.002/paper, N=700 papers ≈ $1.5 total)
 
-Step 4: Synthesize Outline (Claude)
+Step 4: Synthesize Outline (Claude via OpenClaw)
         All analysis.json → deep_analysis.py → review_outline.md
         Claude writes TASK_FOR_WRITER.md (detailed writing brief)
 
-Step 5: Write the Review (Claude)
+Step 5: Write the Review (Claude via OpenClaw)
         TASK_FOR_WRITER.md + outline + core paper data
         → Claude drafts → review_draft.md + references.md
 ```
@@ -110,8 +116,8 @@ zotero_analyzer/           ← Your working directory (outside this repo)
 | Stage | Model | Volume | Cost |
 |-------|-------|--------|------|
 | Step 3: Batch analysis | Gemini 2.5 Flash | ~700 papers | ~$3 |
-| Step 4–5: Outline + writing | Claude Sonnet | ~10 turns | ~$10-15 |
-| **Total** | | | **~$15** |
+| Step 4–5: Outline + writing | Claude Sonnet | ~10 turns | ~$5–10 |
+| **Total** | | | **~$10** |
 
 ---
 
@@ -122,6 +128,7 @@ pip install pymupdf requests
 ```
 
 - Python 3.9+
+- [OpenClaw](https://github.com/openclaw/openclaw) (recommended for automated execution)
 - OpenRouter API key (for both Gemini Flash and Claude)
 - Zotero with local storage at `~/Zotero/storage/`
 
@@ -137,6 +144,3 @@ Crash-safe incremental processing: re-running the script skips already-analyzed 
 
 **Why use folder IDs (e.g. `[XXXXXXXX]`) as citation keys during drafting?**
 Direct correspondence to Zotero storage paths. Replace with proper citation format before submission.
-
-**Why extract only the first ~30,000 characters of each PDF?**
-Key information (abstract, intro, methods, conclusions) is front-loaded in academic papers. Beyond ~30K chars, cost increases linearly but information gain diminishes.
